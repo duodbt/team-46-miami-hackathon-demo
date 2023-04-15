@@ -127,10 +127,11 @@ with tab1:
             update_sidebar()
             display_buttons()
             if st.session_state.mock:
-                time.sleep(2)
-                st.session_state.summary = mock_summary
-                st.header("Summary :pencil2:")
-                st.write(easy_reading_text(st.session_state.summary))
+                with st.spinner("Generating summary :scissors:"):
+                    time.sleep(2)
+                    st.session_state.summary = mock_summary
+                    st.header("Summary :pencil2:")
+                    st.write(easy_reading_text(st.session_state.summary))
 
         # quiz option
         if st.session_state.quiz_button_clicked:
@@ -156,7 +157,7 @@ with tab1:
                         answer = st.session_state.questions_answers[st.session_state.current_question][1]
 
                         question_element = st.markdown(
-                            f'<div class="blockquote-wrapper"><div class="blockquote"><h1><span style="color:#1e1e1e;">{question}</span></h1><h4>&mdash;  DeepLearn</em></h4></div></div>',
+                            f'<div class="blockquote-wrapper"><div class="blockquote"><h1><span style="color:#1e1e1e;">{question}</span></h1><h4>&mdash; DeepLearn</em></h4></div></div>',
                             unsafe_allow_html=True,
                         )
 
@@ -171,7 +172,7 @@ with tab1:
                         question_element.empty()
                         answer_element.empty()
                         st.balloons()
-                    st.session_state.new_source_quiz
+                    st.session_state.new_source_quiz = True
 
     elif choice == "Text":
         uploaded_file = st.sidebar.file_uploader(
